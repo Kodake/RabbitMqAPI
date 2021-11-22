@@ -1,13 +1,10 @@
-﻿using BackEnd.Support;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Text;
-using System.Threading.Tasks;
+using RabbitMQ.Client;
+using BackEnd.Support;
+using System.Text.Json;
+using RabbitMQ.Client.Events;
+using Microsoft.Extensions.Options;
 
 namespace BackEnd.Services
 {
@@ -45,7 +42,7 @@ namespace BackEnd.Services
                         arguments: null
                     );
 
-                    var jsonPayload = JsonConvert.SerializeObject(message);
+                    var jsonPayload = JsonSerializer.Serialize(message);
                     var body = Encoding.UTF8.GetBytes(jsonPayload);
 
                     channel.BasicPublish(exchange: "",
